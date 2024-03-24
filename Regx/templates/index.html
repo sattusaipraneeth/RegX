@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regex Matcher</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        body {
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            background-color: purple;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: left;
+            width: 60%;
+            box-sizing: border-box;
+        }
+
+        input[type="text"], button {
+            margin-bottom: 15px;
+            font-size: 16px;
+            padding: 5px 10px;
+            border-radius: 10px;
+            border: none;
+            font-weight: bold;
+        }
+
+        button {
+            cursor: pointer;
+            background-color: #ff0000; /* Red */
+            color: white;
+        }
+
+        button:hover {
+            background-color: #cc0000; /* Darker Red */
+        }
+
+        #home_button, #back_button {
+            background-color: #ff0000; /* Red */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none; /* Remove underline */
+        }
+
+        #home_button:hover, #back_button:hover {
+            background-color: #cc0000; /* Darker Red */
+        }
+
+        #back_button {
+            position: absolute;
+            top: 10px;
+            left: 120px; /* Adjust as needed */
+        }
+
+        #home_button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        #results {
+            background-color: #f9f9f9; /* Light Gray */
+            padding: 5px;
+            margin-top: 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <a href="/" id="home_button">Home</a>
+    <a href="#" id="back_button">Back</a> <!-- Add back button -->
+
+    <div class="container">
+        <h1>Regex Matcher</h1>
+        <form id="regex_form" method="POST">
+            <label for="test_string">Test String:</label><br>
+            <input type="text" id="test_string" name="test_string" value="{{ test_string }}"><br>
+            <label for="regex_pattern">Regex Pattern:</label><br>
+            <input type="text" id="regex_pattern" name="regex_pattern" value="{{ regex_pattern }}"><br><br>
+            <button type="submit">Submit</button>
+        </form>
+        {% if matches %}
+        <div id="results">
+            <h2>Matches:</h2>
+            <ul>
+                {% for match in matches %}
+                <li>{{ match }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        
+        <h2>Email Validator:</h2>
+        <form id="email-form">
+            <label for="email">Enter Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter Full Email" required>
+            <button type="button" onclick="validateEmail()">Validate</button>
+            <p id="email_result"></p> <!-- Display validation result here -->
+        </form>
+    </div>
+     
+    <script>
+        function validateEmail() {
+            var email = document.getElementById("email").value;
+            var resultMessage = document.getElementById("email_result");
+
+            // Regular expression for email validation
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            // Validate email format
+            if (!emailPattern.test(email)) {
+                resultMessage.innerHTML = "Invalid email format. Please enter a valid email address.";
+                return;
+            }
+
+            // If the email format is valid
+            resultMessage.innerHTML = "Email Address is valid.";
+        }
+    </script>
+</body>
+</html>
